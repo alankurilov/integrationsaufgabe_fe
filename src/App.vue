@@ -24,7 +24,8 @@
       <div class="form-group mb-3">
         <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
-      <button @click="submitForm" type="submit" class="btn btn-primary">Submit</button>
+      <button @click="register" type="submit" class="btn btn-primary">Register</button>
+      <button @click="log_in" type="submit" class="btn btn-primary">Log in</button>
     </div>
   <div class="col-2">
  
@@ -49,7 +50,7 @@ export default {
     }
   },
   methods: {
-    async submitForm() {
+    async register() {
       try {
         const response = await axios.post('http://localhost:8000/', {
           firstName: this.firstName,
@@ -62,7 +63,24 @@ export default {
         if (error.response && error.response.data.detail) {
           this.message = error.response.data.detail
         } else {
-          this.message = 'Error in registration'
+          this.message = 'error in registration'
+        }
+      }
+    },
+    async log_in() {
+      try {
+        const response = await axios.post('http://localhost:8000/login', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password
+        })  
+        this.message = response.data.message
+      } catch (error) {
+        if (error.response && error.response.data.detail) {
+          this.message = error.response.data.detail
+        } else {
+          this.message = 'error in registration'
         }
       }
     }
