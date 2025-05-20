@@ -2,8 +2,8 @@
 <template>
 
 <div class="container mt-4">
-  <router-link to="/home" v-if="next">Home</router-link> |
-  <router-link to="/admin" v-if="admin">Admin</router-link> |
+  <router-link to="/home" v-if="next">Home</router-link> 
+  <router-link to="/admin" v-if="admin">Admin</router-link> 
   <router-view />
   <div class="row justify-content-center">
     <div class="col-2">
@@ -86,11 +86,10 @@ export default {
           password: this.password
         })  
         console.log(response)
-        if(response === "admin"){
+        if(response.data === "admin"){
           this.admin = true
           this.next = false
-        }
-        if(response.status === 200){
+        } else if(response.status === 200){
           this.next = true
           this.admin = false
         }
