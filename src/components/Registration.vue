@@ -62,16 +62,17 @@ export default {
           password: this.password
         })
         console.log(response.status)
-        console.log(this.next);  // булевое значение
+        console.log(this.next);  
         if(response.status === 200){
           this.next = true
           this.admin = false
-        }
-        console.log(next);  // булевое значение
+        } 
+        console.log(next);  
         this.message = response.data.message
       } catch (error) {
         if (error.response && error.response.data.detail) {
           this.message = error.response.data.detail
+          
         } else {
           this.message = 'error in registration'
         }
@@ -100,6 +101,8 @@ export default {
         } else {
           this.message = 'error in login'
         }
+        this.next = false
+        this.admin = false
       }
     }
   }

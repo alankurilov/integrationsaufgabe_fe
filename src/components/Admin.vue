@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-// setup или обычный export default - зависит от тебя
+
 </script>
