@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h1>Home</h1>
-    <button @click="candidatesAll" type="submit" class="btn btn-primary">all candidates</button>
+    <ul>
+      <li v-for="candidate in candidates" :key="candidate.id">
+        {{ candidate.email }} - {{ candidate.firstName }}
+        <button  type="submit" class="btn btn-primary me-2">vote</button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -12,22 +16,36 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            candidate: {}
+            candidates: []
         };
     },
-    methods: {
-        async candidatesAll() {
-            try {
-                const response = await axios.get('http://localhost:8000/candidates')
-                console.log(response.data)
-            } catch (error) {
-                if (error.response && error.response.data.detail) {
-                    this.message = error.response.data.detail
-                } else {
-                    this.message = 'error in registration'
-                }
+    async created() {
+        try {
+            const response = await axios.get('http://localhost:8000/')
+            this.candidates = response.data 
+            console.log(candidates)
+        } catch (error) {
+            if (error.response && error.response.data.detail) {
+                this.message = error.response.data.detail
+            } else {
+                this.message = 'error in registration'
             }
         }
+    },
+    methods: {
+        async vote() {
+        try {
+            const response = await axios.get('http://localhost:8000/votes')
+            this.candidates = response.data 
+            console.log(candidates)
+        } catch (error) {
+            if (error.response && error.response.data.detail) {
+                this.message = error.response.data.detail
+            } else {
+                this.message = 'error in registration'
+            }
+        }
+    },
     }
 }
 </script>
